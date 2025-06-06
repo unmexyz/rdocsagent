@@ -13,15 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
     form.id = "letterheadForm";
     form.innerHTML = `
     <label>Company Name: <input type="text" id="companyName" placeholder="Enter Company Name"></label><br>    
-    <label>Holder Name: <input type="text" id="managerName" required></label><br>
+    <label>Manager Name: <input type="text" id="managerName" required></label><br>
     <label>From Date: <input type="date" id="date_1" value="20XX-XX-XX" required></label><br>
     <label>To Date: <input type="date" id="date_2" value="20XX-XX-XX" required></label><br>
         <label>Bank Name: <input type="text" id="bank_name" value="Bank Name" required></label><br>
-        <label>Bank Account Number: <input type="text" id="account_number" required></label><br>
+        <label>Account Number: <input type="text" id="account_number" required></label><br>
         <label>Employee Name: <input type="text" id="employeeName" required></label><br>
         <label>Employee ID: <input type="text" id="employeeId" required></label><br>
         <label>Company Logo: <input type="file" id="companyStamp" accept="image/*"></label><br>
-      
+       
     `;
     document.body.insertBefore(form, document.body.firstChild);
 
@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const employeeName = document.getElementById("employeeName").value;
         const employeeId = document.getElementById("employeeId").value;
         const companyStampInput = document.getElementById("companyStamp");
+        
         const date_1 = document.getElementById("date_1").value;
         const date_2 = document.getElementById("date_2").value;
         const bank_name = document.getElementById("bank_name").value;
@@ -63,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add custom details
         doc.setFontSize(12);
         doc.text(`Manager:  ${managerName}`, 10, 70);
-        doc.setFont(undefined, "underline");
         doc.text(`Employee: ${employeeName}`, 10, 80);
         doc.text(`Employee ID: ${employeeId}`, 10, 90);
 
@@ -96,34 +96,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const barcodeImage = barcodeCanvas.toDataURL("image/png");
         doc.addImage(barcodeImage, "PNG", 10, 225, 50, 30);
 
-        // Add company stamp image if uploaded
-        if (companyStampInput.files && companyStampInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                doc.addImage(e.target.result, "PNG", 10, 10, 30, 30);
-                // Add custom QR image if uploaded
-                if (customQRInput.files && customQRInput.files[0]) {
-                    const qrReader = new FileReader();
-                    qrReader.onload = function(ev) {
-                        doc.addImage(ev.target.result, "PNG", 165, 225, 30, 30);
-                        doc.save("letterhead.pdf");
-                    };
-                    qrReader.readAsDataURL(customQRInput.files[0]);
-                } else {
-                    doc.save("letterhead.pdf");
-                }
-            };
-            reader.readAsDataURL(companyStampInput.files[0]);
-        } else if (customQRInput.files && customQRInput.files[0]) {
-            const qrReader = new FileReader();
-            qrReader.onload = function(ev) {
-                doc.addImage(ev.target.result, "PNG", 10, 10, 30, 30);
-                doc.save("letterhead.pdf");
-            };
-            qrReader.readAsDataURL(customQRInput.files[0]);
-        } else {
-            doc.save("letterhead.pdf");
-        }
+        // Add a footer with the company stamp if available
+if (companyStampInput.files && companyStampInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        doc.addImage(e.target.result, "PNG", 10, 10, 30, 30);
+        doc.save("letterhead.pdf");
+    };
+    reader.readAsDataURL(companyStampInput.files[0]); // <-- This line is required!
+} 
+else {
+    // If no company stamp is uploaded, just save the PDF
+    doc.save("letterhead.pdf");
+}
     }
 
     // Add a button to trigger the PDF generation
