@@ -1,3 +1,65 @@
+// Add this at the very top of your script, before anything else
+const style = document.createElement('style');
+style.innerHTML = `
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: #f7f7f9;
+    margin: 0;
+    padding: 0;
+}
+form#letterheadForm {
+    background: #fff;
+    max-width: 400px;
+    margin: 40px auto 20px auto;
+    padding: 24px 32px 16px 32px;
+    border-radius: 10px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    font-weight: 300;
+}
+form#letterheadForm label {
+    display: block;
+    margin-bottom: 14px;
+    color: #222;
+    font-size: 15px;
+    font-weight: 300;
+}
+form#letterheadForm input[type="text"],
+form#letterheadForm input[type="date"],
+form#letterheadForm input[type="file"] {
+    width: 100%;
+    padding: 7px 10px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 300;
+    background: #fafbfc;
+    box-sizing: border-box;
+}
+button {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px 28px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 400;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.08);
+    transition: background 0.2s;
+}
+button:hover {
+    background: #125ea8;
+}
+`;
+document.head.appendChild(style);
+
+
 document.addEventListener("DOMContentLoaded", () => {
     // Function to generate a random 8-digit hexadecimal string
     function random8Hex() {
