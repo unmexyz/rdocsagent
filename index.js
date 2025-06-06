@@ -13,15 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
     form.id = "letterheadForm";
     form.innerHTML = `
     <label>Company Name: <input type="text" id="companyName" placeholder="Enter Company Name"></label><br>    
-    <label>Manager Name: <input type="text" id="managerName" required></label><br>
+    <label>Holder Name: <input type="text" id="managerName" required></label><br>
     <label>From Date: <input type="date" id="date_1" value="20XX-XX-XX" required></label><br>
     <label>To Date: <input type="date" id="date_2" value="20XX-XX-XX" required></label><br>
         <label>Bank Name: <input type="text" id="bank_name" value="Bank Name" required></label><br>
-        <label>Account Number: <input type="text" id="account_number" required></label><br>
+        <label>Bank Account Number: <input type="text" id="account_number" required></label><br>
         <label>Employee Name: <input type="text" id="employeeName" required></label><br>
         <label>Employee ID: <input type="text" id="employeeId" required></label><br>
-        <label>Company Stamp: <input type="file" id="companyStamp" accept="image/*"></label><br>
-        <label>Custom QR: <input type="file" id="customQR" accept="image/*"></label><br>
+        <label>Company Logo: <input type="file" id="companyStamp" accept="image/*"></label><br>
+      
     `;
     document.body.insertBefore(form, document.body.firstChild);
 
@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const employeeName = document.getElementById("employeeName").value;
         const employeeId = document.getElementById("employeeId").value;
         const companyStampInput = document.getElementById("companyStamp");
-        const customQRInput = document.getElementById("customQR");
         const date_1 = document.getElementById("date_1").value;
         const date_2 = document.getElementById("date_2").value;
         const bank_name = document.getElementById("bank_name").value;
